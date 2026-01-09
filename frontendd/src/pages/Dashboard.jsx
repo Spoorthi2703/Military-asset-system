@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../apiConfig';
 
 const Dashboard = () => {
     const [stats, setStats] = useState({ opening: 0, movement: 0, assigned: 0, closing: 0 });
@@ -8,7 +9,7 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchDashboardData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/dashboard/summary');
+                const response = await axios.get(`${API_BASE_URL}/dashboard/summary`);
                 setStats(response.data);
                 setLoading(false);
             } catch (err) {

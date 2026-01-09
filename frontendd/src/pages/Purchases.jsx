@@ -1,33 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../apiConfig';
 
 const Purchases = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({ asset_id: 1, qty: 0 });
     const [history, setHistory] = useState([]);
 
-    const fetchHistory = async () => {
-        try {
-            const res = await axios.get('http://localhost:5000/api/transactions/history/PURCHASE');
-            setHistory(res.data);
-        } catch (err) { console.error("History load failed"); }
-    };
+   const fetchHistory = async () => {
+    try {
+        // Updated the link to use the centralized API_BASE_URL
+        const res = await axios.get(`${API_BASE_URL}/transactions/history/PURCHASE`);
+        setHistory(res.data);
+    } catch (err) { 
+        console.error("History load failed"); 
+    }
+};
 
-    useEffect(() => { fetchHistory(); }, []);
+useEffect(() => { 
+    fetchHistory(); 
+}, []);
 
-    const handlePurchase = async (e) => {
-        e.preventDefault();
-        try {
-            const res = await axios.post('http://localhost:5000/api/transactions/purchase', formData);
-            if (res.data.success) {
-                alert("Stock Successfully Added!");
-                fetchHistory(); // Refresh table immediately
-            }
-        } catch (err) {
-            alert("Error: " + (err.response?.data?.message || "Failed to update SQL"));
+const handlePurchase = async (e) => {
+    e.preventDefault();
+    try {
+        // Updated the link to use the centralized API_BASE_URL
+        const res = await axios.post(`${API_BASE_URL}/transactions/purchase`, formData);
+        if (res.data.success) {
+            alert("Stock Successfully Added!");
+            fetchHistory(); // Refresh table immediately
         }
-    };
+    } catch (err) {
+        alert("Error: " + (err.response?.data?.message || "Failed to update SQL"));
+    }
+};
 
     return (
         <div className="p-8 max-w-4xl mx-auto">

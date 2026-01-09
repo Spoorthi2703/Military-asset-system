@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../apiConfig';
 
 const Assignments = () => {
     const [data, setData] = useState({ asset_id: 1, personnel_name: '', qty: 0 });
@@ -7,35 +8,35 @@ const Assignments = () => {
     const [expendHistory, setExpendHistory] = useState([]);
 
     const fetchHistories = async () => {
-        try {
-            // Fetch Assignment History
-            const resAssign = await axios.get('http://localhost:5000/api/transactions/history/ASSIGNMENT');
-            setAssignHistory(resAssign.data);
+    try {
+        // Fetch Assignment History
+        const resAssign = await axios.get(`${API_BASE_URL}/transactions/history/ASSIGNMENT`);
+        setAssignHistory(resAssign.data);
 
-            // Fetch Expenditure History
-            const resExpend = await axios.get('http://localhost:5000/api/transactions/history/EXPENDITURE');
-            setExpendHistory(resExpend.data);
-        } catch (err) {
-            console.error("History load failed", err);
+        // Fetch Expenditure History
+        const resExpend = await axios.get(`${API_BASE_URL}/transactions/history/EXPENDITURE`);
+        setExpendHistory(resExpend.data);
+    } catch (err) {
+        console.error("History load failed", err);
+    }
+};
+
+useEffect(() => {
+    fetchHistories();
+}, []);
+
+const submitLog = async (type) => {
+    if (data.qty <= 0) return alert("Please enter a valid quantity");
+    try {
+        const res = await axios.post(`${API_BASE_URL}/transactions/assign`, { ...data, type });
+        if (res.data.success) {
+            alert(`${type} logged successfully!`);
+            fetchHistories(); // Refresh both tables
         }
-    };
-
-    useEffect(() => {
-        fetchHistories();
-    }, []);
-
-    const submitLog = async (type) => {
-        if (data.qty <= 0) return alert("Please enter a valid quantity");
-        try {
-            const res = await axios.post('http://localhost:5000/api/transactions/assign', { ...data, type });
-            if (res.data.success) {
-                alert(`${type} logged successfully!`);
-                fetchHistories(); // Refresh both tables
-            }
-        } catch (err) {
-            alert("Error logging " + type);
-        }
-    };
+    } catch (err) {
+        alert("Error logging " + type);
+    }
+};
 
     return (
         <div className="p-6 max-w-6xl mx-auto">

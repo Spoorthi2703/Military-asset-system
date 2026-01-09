@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../apiConfig';
 
 const Transfers = () => {
     const navigate = useNavigate();
@@ -8,25 +9,32 @@ const Transfers = () => {
     const [history, setHistory] = useState([]);
 
     const fetchHistory = async () => {
-        try {
-            const res = await axios.get('http://localhost:5000/api/transactions/history/TRANSFER');
-            setHistory(res.data);
-        } catch (err) { console.error("History load failed"); }
-    };
+    try {
+        // Updated the link to use the centralized API_BASE_URL
+        const res = await axios.get(`${API_BASE_URL}/transactions/history/TRANSFER`);
+        setHistory(res.data);
+    } catch (err) { 
+        console.error("History load failed"); 
+    }
+};
 
-    useEffect(() => { fetchHistory(); }, []);
+useEffect(() => { 
+    fetchHistory(); 
+}, []);
 
-    const handleTransfer = async (e) => {
-        e.preventDefault();
-        try {
-            const res = await axios.post('http://localhost:5000/api/transactions/transfer', transfer);
-            if (res.data.success) {
-                alert(`Transfer Successful!`);
-                fetchHistory();
-            }
-        } catch (err) { alert("Transfer Failed"); }
-    };
-
+const handleTransfer = async (e) => {
+    e.preventDefault();
+    try {
+        // Updated the link to use the centralized API_BASE_URL
+        const res = await axios.post(`${API_BASE_URL}/transactions/transfer`, transfer);
+        if (res.data.success) {
+            alert(`Transfer Successful!`);
+            fetchHistory();
+        }
+    } catch (err) { 
+        alert("Transfer Failed"); 
+    }
+};
     return (
         <div className="max-w-4xl mx-auto p-6">
             <h1 className="text-2xl font-bold text-gray-800 mb-6">Inter-Base Asset Transfer</h1>

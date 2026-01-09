@@ -1,0 +1,1 @@
+export const API_BASE_URL = "https://military-asset-system-jkxg.onrender.com/api";

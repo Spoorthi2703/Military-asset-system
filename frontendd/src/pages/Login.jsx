@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../apiConfig';
 
 function Login({ setAuth }) {
   const [credentials, setCredentials] = useState({ username: '', password: '' });
@@ -12,7 +13,7 @@ function Login({ setAuth }) {
     
     try {
       // 1. Make sure this URL matches your backend exactly!
-      const res = await axios.post('http://localhost:5000/api/login', credentials);
+      const res = await axios.post(`${API_BASE_URL}/login`, credentials);
       
       console.log("Server Response:", res.data);
 
