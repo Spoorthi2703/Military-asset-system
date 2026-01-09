@@ -9,10 +9,9 @@ const pool = mysql.createPool({
   ssl: {
     rejectUnauthorized: false
   },
-  // ADD THESE TWO LINES:
+  
   enableKeepAlive: true,
   dateStrings: true,
-  // Increase timeout for Singapore -> UpCloud latency
   connectTimeout: 20000 
 });
 
