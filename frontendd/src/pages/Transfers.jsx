@@ -68,7 +68,7 @@ const handleTransfer = async (e) => {
                         <input type="number" placeholder="0" className="w-full border p-2 rounded" onChange={(e) => setTransfer({...transfer, qty: parseInt(e.target.value)})} required />
                     </div>
                 </div>
-                <button type="submit" className="w-full bg-slate-900 text-white py-3 rounded-lg font-bold hover:bg-slate-800">Execute & Update SQL</button>
+                <button type="submit" className="w-full bg-slate-900 text-white py-3 rounded-lg font-bold hover:bg-slate-800">Execute</button>
             </form>
 
             <h3 className="text-xl font-bold mb-4">Permanent Transfer History</h3>

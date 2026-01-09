@@ -32,7 +32,7 @@ const handlePurchase = async (e) => {
             fetchHistory(); // Refresh table immediately
         }
     } catch (err) {
-        alert("Error: " + (err.response?.data?.message || "Failed to update SQL"));
+        alert("Error: " + (err.response?.data?.message || "Failed to update"));
     }
 };
 
@@ -51,7 +51,7 @@ const handlePurchase = async (e) => {
                     <label className="block text-sm font-bold text-gray-700 mb-2">Quantity to Procure</label>
                     <input type="number" className="w-full border border-gray-300 p-2.5 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="0" onChange={e => setFormData({...formData, qty: e.target.value})} required />
                 </div>
-                <button type="submit" className="w-full bg-blue-700 hover:bg-blue-800 text-white py-3 rounded-lg font-bold transition-all">Confirm & Update SQL</button>
+                <button type="submit" className="w-full bg-blue-700 hover:bg-blue-800 text-white py-3 rounded-lg font-bold transition-all">Confirm</button>
             </form>
 
             <h3 className="text-xl font-bold mb-4">Permanent Procurement Log</h3>
