@@ -1,12 +1,19 @@
 const mysql = require('mysql2/promise');
-require('dotenv').config();
 
-// This tells MySQL to use the long URI string you just pasted
-const db = mysql.createPool({
-    uri: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false // This is required for Aiven's encrypted connection
-    }
+const pool = mysql.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT || 27798,
+  ssl: {
+    rejectUnauthorized: false
+  },
+  // ADD THESE TWO LINES:
+  enableKeepAlive: true,
+  dateStrings: true,
+  // Increase timeout for Singapore -> UpCloud latency
+  connectTimeout: 20000 
 });
 
-module.exports = db;
+module.exports = pool;
