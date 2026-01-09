@@ -9,11 +9,9 @@ const Assignments = () => {
 
     const fetchHistories = async () => {
     try {
-        // Fetch Assignment History
         const resAssign = await axios.get(`${API_BASE_URL}/transactions/history/ASSIGNMENT`);
         setAssignHistory(resAssign.data);
 
-        // Fetch Expenditure History
         const resExpend = await axios.get(`${API_BASE_URL}/transactions/history/EXPENDITURE`);
         setExpendHistory(resExpend.data);
     } catch (err) {
@@ -31,7 +29,7 @@ const submitLog = async (type) => {
         const res = await axios.post(`${API_BASE_URL}/transactions/assign`, { ...data, type });
         if (res.data.success) {
             alert(`${type} logged successfully!`);
-            fetchHistories(); // Refresh both tables
+            fetchHistories();
         }
     } catch (err) {
         alert("Error logging " + type);
@@ -42,7 +40,7 @@ const submitLog = async (type) => {
         <div className="p-6 max-w-6xl mx-auto">
             <h1 className="text-2xl font-bold mb-6 text-gray-800">Assignments & Expenditure</h1>
             
-            {/* FORM CARDS */}
+           
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
                 <div className="bg-white p-6 rounded shadow border">
                     <h2 className="font-bold text-lg mb-4 text-orange-600">Assign Asset to Personnel</h2>
@@ -67,9 +65,9 @@ const submitLog = async (type) => {
                 </div>
             </div>
 
-            {/* HISTORY TABLES */}
+            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* Personnel Assignment Table */}
+                
                 <div>
                     <h3 className="text-xl font-bold mb-4 text-gray-700">Personnel Assignment History</h3>
                     <div className="bg-white rounded-lg shadow border overflow-hidden">
@@ -94,7 +92,7 @@ const submitLog = async (type) => {
                     </div>
                 </div>
 
-                {/* Expended Assets Table */}
+                
                 <div>
                     <h3 className="text-xl font-bold mb-4 text-gray-700">Expended Assets Log</h3>
                     <div className="bg-white rounded-lg shadow border overflow-hidden">
