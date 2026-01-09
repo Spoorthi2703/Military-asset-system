@@ -10,7 +10,6 @@ const Transfers = () => {
 
     const fetchHistory = async () => {
     try {
-        // Updated the link to use the centralized API_BASE_URL
         const res = await axios.get(`${API_BASE_URL}/transactions/history/TRANSFER`);
         setHistory(res.data);
     } catch (err) { 
@@ -25,7 +24,6 @@ useEffect(() => {
 const handleTransfer = async (e) => {
     e.preventDefault();
     try {
-        // Updated the link to use the centralized API_BASE_URL
         const res = await axios.post(`${API_BASE_URL}/transactions/transfer`, transfer);
         if (res.data.success) {
             alert(`Transfer Successful!`);
