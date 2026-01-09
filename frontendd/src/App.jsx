@@ -8,17 +8,13 @@ import Assignments from './pages/Assignments';
 import Login from './pages/Login';
 
 function App() {
-  // ALWAYS start unauthenticated
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   return (
     <Router>
       <Routes>
 
-        {/* ROOT always goes to LOGIN */}
         <Route path="/" element={<Navigate to="/login" />} />
-
-        {/* LOGIN ROUTE */}
         <Route
           path="/login"
           element={
@@ -28,7 +24,6 @@ function App() {
           }
         />
 
-        {/* PROTECTED ROUTES */}
         <Route
           path="/*"
           element={
