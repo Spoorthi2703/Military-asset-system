@@ -2,11 +2,9 @@ const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
 
-// --- NEW: FETCH HISTORY ROUTE ---
 router.get('/history/:type', async (req, res) => {
     try {
         const { type } = req.params;
-        // Query to get transactions joined with asset names for the table
         const [rows] = await db.query(
             `SELECT t.*, a.name as asset_name 
              FROM transactions t 
@@ -21,7 +19,7 @@ router.get('/history/:type', async (req, res) => {
     }
 });
 
-// --- EXISTING POST ROUTES (Unchanged) ---
+
 router.post('/purchase', async (req, res) => {
     const { asset_id, qty } = req.body;
     try {
