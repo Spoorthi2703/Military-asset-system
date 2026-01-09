@@ -5,20 +5,19 @@ const Layout = ({ children, setIsAuthenticated }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // 1. Clear the storage
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
+     localStorage.removeItem('token');
+     localStorage.removeItem('role');
     
-    // 2. Update state to trigger App.jsx redirect
+    
     setIsAuthenticated(false);
     
-    // 3. Move to login page
+    
     navigate('/login');
   };
 
   return (
     <div className="flex h-screen bg-gray-100">
-      {/* Sidebar */}
+      
       <div className="w-64 bg-slate-900 text-white flex flex-col">
         <div className="p-6">
           <h1 className="text-xl font-bold border-b border-slate-700 pb-2">MIL-ASSET v1.0</h1>
@@ -31,7 +30,7 @@ const Layout = ({ children, setIsAuthenticated }) => {
           <Link to="/assignments" className="block p-3 rounded hover:bg-slate-800 transition">Assignments</Link>
         </nav>
 
-        {/* Logout Button Section */}
+        
         <div className="p-4 border-t border-slate-800">
           <button 
             onClick={handleLogout}
@@ -45,7 +44,7 @@ const Layout = ({ children, setIsAuthenticated }) => {
         </div>
       </div>
 
-      {/* Main Content Area */}
+      
       <div className="flex-1 overflow-auto">
         <header className="bg-white shadow-sm p-4 flex justify-between items-center">
           <span className="text-gray-500 font-medium italic">Security Status: Encrypted</span>
