@@ -2,6 +2,7 @@ Military Asset Management System
 A full-stack web application designed to track military inventory, including asset purchases, transfers, and assignments. This system ensures high data integrity and real-time tracking of mission-critical hardware.
 
 🚀 Live Deployment Links
+
 Frontend (UI): https://military-asset-system-lac.vercel.app
 
 Backend (API): https://military-asset-system-jkxg.onrender.com
@@ -60,3 +61,4 @@ Frontend:
 Navigate to /frontendd, run npm install.
 
 Run npm run dev.
+
