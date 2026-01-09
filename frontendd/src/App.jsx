@@ -1,34 +1,28 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Layout from './components/Layout';
-import Dashboard from './pages/Dashboard';
-import Purchases from './pages/Purchases';
-import Transfers from './pages/Transfers';
-import Assignments from './pages/Assignments';
-import Login from './pages/Login';
-
 function App() {
-  // Instead of just a raw state, use this to ensure it stays in sync
-const [isAuthenticated, setIsAuthenticated] = useState(() => {
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
     return !!localStorage.getItem('token');
-});
+  });
+
   return (
     <Router>
       <Routes>
-        {/* If NOT logged in, any path will take them to Login */}
+
+        {/* ROOT always goes to LOGIN */}
+        <Route path="/" element={<Navigate to="/login" />} />
+
+        {/* LOGIN */}
         <Route 
           path="/login" 
           element={!isAuthenticated ? <Login setAuth={setIsAuthenticated} /> : <Navigate to="/dashboard" />} 
         />
 
-        {/* Protected Routes */}
+        {/* PROTECTED ROUTES */}
         <Route 
           path="/*" 
           element={
             isAuthenticated ? (
               <Layout setIsAuthenticated={setIsAuthenticated}>
                 <Routes>
-                  <Route path="/" element={<Dashboard />} />
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/purchases" element={<Purchases />} />
                   <Route path="/transfers" element={<Transfers />} />
@@ -45,5 +39,3 @@ const [isAuthenticated, setIsAuthenticated] = useState(() => {
     </Router>
   );
 }
-
-export default App;
