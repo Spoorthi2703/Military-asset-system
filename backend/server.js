@@ -7,23 +7,18 @@ require('dotenv').config();
 
 const app = express();
 
-// --- UPDATED CORS CONFIGURATION ---
-// This ensures your Vercel domain is allowed to send requests, including headers
 app.use(cors({
-    origin: '*', // Allows all origins - best for demos to avoid "Blocked by CORS" errors
+    origin: '*', 
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json());
 
-// --- HEALTH CHECK ROUTE ---
-// Helpful to see if the backend is live in your browser
 app.get('/', (req, res) => {
     res.send('Military Asset Backend is Running 🚀');
 });
 
-// --- 1. LOGIN ROUTE ---
 app.post('/api/login', async (req, res) => {
     const { username, password } = req.body;
 
@@ -61,7 +56,6 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-// --- 2. DASHBOARD SUMMARY ROUTE ---
 app.get('/api/dashboard/summary', async (req, res) => {
     try {
         const [purchaseRes] = await db.query(
@@ -91,7 +85,6 @@ app.get('/api/dashboard/summary', async (req, res) => {
 
 app.use('/api/transactions', transactionRoutes);
 
-// --- 3. DYNAMIC PORT FOR RENDER ---
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, '0.0.0.0', () => {
