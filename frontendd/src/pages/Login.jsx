@@ -12,7 +12,6 @@ function Login({ setAuth }) {
     console.log("Attempting login for:", credentials.username);
     
     try {
-      // 1. Make sure this URL matches your backend exactly!
       const res = await axios.post(`${API_BASE_URL}/login`, credentials);
       
       console.log("Server Response:", res.data);
@@ -21,7 +20,7 @@ function Login({ setAuth }) {
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('role', res.data.role || 'USER');
         
-        // 2. Update state and navigate
+        
         setAuth(true);
         navigate('/dashboard');
       }
