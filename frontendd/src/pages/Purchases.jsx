@@ -10,7 +10,6 @@ const Purchases = () => {
 
    const fetchHistory = async () => {
     try {
-        // Updated the link to use the centralized API_BASE_URL
         const res = await axios.get(`${API_BASE_URL}/transactions/history/PURCHASE`);
         setHistory(res.data);
     } catch (err) { 
@@ -25,11 +24,10 @@ useEffect(() => {
 const handlePurchase = async (e) => {
     e.preventDefault();
     try {
-        // Updated the link to use the centralized API_BASE_URL
         const res = await axios.post(`${API_BASE_URL}/transactions/purchase`, formData);
         if (res.data.success) {
             alert("Stock Successfully Added!");
-            fetchHistory(); // Refresh table immediately
+            fetchHistory(); 
         }
     } catch (err) {
         alert("Error: " + (err.response?.data?.message || "Failed to update"));
